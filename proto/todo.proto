@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package todo;
+
+service TodoService {
+  // Unary RPC - Create a Todo
+  rpc createTodo(CreateTodo) returns (Todo) {}
+  rpc getTodo(TodoId) returns (Todo) {}
+
+  // Client Streaming RPC - Update Todo Fields
+  rpc updateTodo(stream UpdateTodo) returns (Todo) {}
+
+  // Server Streaming RPC - Get Todos by Date Range
+  rpc getTodos(Empty) returns (stream Todo) {}
+  rpc getTodosByPriority(Priority) returns (stream Todo) {}
+
+  // Bidirectional Streaming RPC - Update Todo Status
+  rpc updateTodoStatus(stream StatusUpdate) returns (stream Todo) {}
+}
+
+// Enums
+enum TodoStatus {
+  PENDING = 0;
+  IN_PROGRESS = 1;
+  COMPLETED = 2;
+  CANCELLED = 3;
+}
+
+message Todo {
+  string id = 1;
+  string name = 2;
+  int32 priority = 3;
+  TodoStatus status = 4;
+}
+
+message TodoId {
+  string id = 1;
+}
+
+message Empty {
+}
+
+message CreateTodo {
+  string name = 1;
+  int32 priority = 2;
+  TodoStatus status = 3;
+}
+
+message UpdateTodo {
+  string id = 1;
+  optional string name = 2;
+  optional int32 priority = 3;
+  optional TodoStatus status = 4;
+}
+
+message Priority {
+  int32 priority = 1;
+}
+
+message StatusUpdate {
+  string id = 1;
+  TodoStatus status = 2;
+}
+

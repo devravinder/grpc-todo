@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "clean:build":"npx del-cli dist",
+    "build": "pnpm clean:build && tsc",
+    "start": "node dist/index",
+    "dev": "dotenv -e .env nodemon src/index.ts",
+    "gen:types": "pnpm gen:clean && dotenv -e .env -- proto-loader-gen-types --grpcLib=@grpc/grpc-js --outDir=$PROTO_FILES_OUT $PROTO_FILES_SRC/*.proto",
+    "gen:clean": "dotenv -e .env -- npx del-cli $PROTO_FILES_OUT",
+    "test": "echo 'Yet to write $PROTO_FILES_OUT' && exit 1",
+    "init": "pnpx tsc --init"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "del-cli": "^6.0.0",
+    "dotenv-cli": "^7.4.4",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.12.4",
+    "@grpc/proto-loader": "^0.7.13"
+  }
+}
