@@ -30,6 +30,12 @@ packages:
         
 
 
+Sad:-
+gRPC web currently won't support for es modules.
+ I tried many ways ...no proper result
+
+
+
 Note:- @grpc/proto-loader & grpc-tools  both are for generating files only, but
        
        @grpc/proto-loader: loands .proto files & generates .js files at *runtime*  - suitable for backned apps
@@ -49,6 +55,8 @@ Things todo:
 
 Node-client
 
+
+  npm scripts:-
 
     "gen:js": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./src/proto --grpc_out=./src/proto --plugin=protoc-gen-grpc=$(which grpc_tools_node_protoc_plugin) -I ../proto ../proto/*.proto",
 
